@@ -36,6 +36,10 @@ const TodoListContainer = ({ todo, TodoActions }) => {
     TodoActions.toggleCheck(id);
   };
 
+  const onSort = todos => {
+    TodoActions.sortTodo(todos);
+  };
+
   return (
     <div>
       <TodoForm
@@ -46,6 +50,7 @@ const TodoListContainer = ({ todo, TodoActions }) => {
       />
       <TodoList
         todos={todos}
+        onSort={onSort}
         onUpdate={onUpdate}
         onRemove={onRemove}
         onToggle={onToggle}

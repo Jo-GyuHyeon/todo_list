@@ -8,6 +8,7 @@ const UPDATE_TODO = 'todos/UPDATE_TODO';
 const REMOVE_TODO = 'todos/REMOVE_TODO';
 const CHANGE_INPUT = 'todos/CHANGE_INPUT';
 const TOGGLE_CHEKC = 'todos/TOGGLE_CHEKC';
+const SORT_TODO = 'todos/SORT_TODO';
 const INITIALIZE_FORM = 'todos/INITIALIZE_FORM';
 
 // action creators
@@ -17,6 +18,7 @@ export const updateTodo = createAction(UPDATE_TODO, meta => meta);
 export const removeTodo = createAction(REMOVE_TODO, meta => meta);
 export const changeInput = createAction(CHANGE_INPUT);
 export const toggleCheck = createAction(TOGGLE_CHEKC);
+export const sortTodo = createAction(SORT_TODO);
 export const initializeForm = createAction(INITIALIZE_FORM);
 
 let id = 0;
@@ -70,6 +72,10 @@ export default handleActions(
         draft.todos = draft.todos.map(todo =>
           todo.id === toggle_id ? { ...todo, done: !todo.done } : todo
         );
+      }),
+    [SORT_TODO]: (state, action) =>
+      produce(state, draft => {
+        draft.todos = action.payload;
       }),
     [INITIALIZE_FORM]: state =>
       produce(state, draft => {
