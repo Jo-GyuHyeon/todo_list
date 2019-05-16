@@ -13,7 +13,7 @@ const TodoItem = memo(
     onDragOver,
     onDragEnd
   }) => {
-    const { id, title, content, due_date, done } = todo;
+    const { id, title, content, due_date, completed } = todo;
 
     const [editing, toggleEdit] = useState(false);
     const [edit_form, setValues] = useState({ ...todo });
@@ -57,7 +57,7 @@ const TodoItem = memo(
     return (
       <li
         style={{
-          textDecoration: done ? 'line-through' : 'none',
+          textDecoration: completed ? 'line-through' : 'none',
           border: ' solid 1px'
         }}
         draggable

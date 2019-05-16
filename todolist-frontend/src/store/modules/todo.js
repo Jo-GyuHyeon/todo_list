@@ -30,7 +30,7 @@ const initialState = {
     title: '',
     content: '',
     due_date: new Date(),
-    done: false
+    completed: false
   },
   todos: []
 };
@@ -70,7 +70,7 @@ export default handleActions(
       produce(state, draft => {
         const toggle_id = action.payload;
         draft.todos = draft.todos.map(todo =>
-          todo.id === toggle_id ? { ...todo, done: !todo.done } : todo
+          todo.id === toggle_id ? { ...todo, completed: !todo.completed } : todo
         );
       }),
     [SORT_TODO]: (state, action) =>

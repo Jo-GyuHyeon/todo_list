@@ -1,28 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as todoActions from '../store/modules/todo';
-import TodoList from '../components/Todo/TodoList';
-import TodoForm from '../components/Todo/TodoForm';
+import * as todoActions from 'store/modules/todo';
+import * as VisibilityFilters from '../store/modules/visibilityFilter';
+import TodoList from 'components/Todo/TodoList';
 
-const TodoListContainer = ({ todo, TodoActions }) => {
-  const { todo_item, todos } = todo;
-
-  const onChange = e => {
-    TodoActions.changeInput({
-      [e.target.name]: e.target.value
-    });
-  };
-
-  const onDateChange = due_date => {
-    TodoActions.changeInput({ due_date });
-  };
-
-  const onSubmit = e => {
-    e.preventDefault();
-    TodoActions.addTodo(todo_item);
-    TodoActions.initializeForm();
-  };
+const TodoListContainer = ({ todo, TodoActions, filter }) => {
+  const { todos } = todo;
 
   const onUpdate = edited_todo => {
     TodoActions.updateTodo(edited_todo);
@@ -40,28 +24,37 @@ const TodoListContainer = ({ todo, TodoActions }) => {
     TodoActions.sortTodo(todos);
   };
 
+  const filtered_todos = () => {
+    switch (filter) {
+      case VisibilityFilters.SHOW_ALL:
+        return todos;
+      case VisibilityFilters.SHOW_COMPLETED:
+        return todos.filter(todo => todo.completed);
+      case VisibilityFilters.SHOW_ACTIVE:
+        return todos.filter(todo => !todo.completed);
+      case VisibilityFilters.SHOW_EXPIRED:
+        const now = new Date();
+        return todos.filter(todo => now - todo.due_date > 0);
+      default:
+        throw new Error('Unknown filter: ' + filter);
+    }
+  };
+
   return (
-    <div>
-      <TodoForm
-        todo_item={todo_item}
-        onChange={onChange}
-        onDateChange={onDateChange}
-        onSubmit={onSubmit}
-      />
-      <TodoList
-        todos={todos}
-        onSort={onSort}
-        onUpdate={onUpdate}
-        onRemove={onRemove}
-        onToggle={onToggle}
-      />
-    </div>
+    <TodoList
+      todos={filtered_todos()}
+      onSort={onSort}
+      onUpdate={onUpdate}
+      onRemove={onRemove}
+      onToggle={onToggle}
+    />
   );
 };
 
 export default connect(
   state => ({
-    todo: state.todo
+    todo: state.todo,
+    filter: state.visibilityFilter.filter
   }),
   dispatch => ({
     TodoActions: bindActionCreators(todoActions, dispatch)
