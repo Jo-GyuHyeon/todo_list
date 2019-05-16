@@ -1,4 +1,6 @@
 import React, { useState, memo } from 'react';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const TodoItem = memo(
   ({
@@ -28,6 +30,13 @@ const TodoItem = memo(
       setValues({
         ...edit_form,
         [e.target.name]: e.target.value
+      });
+    };
+
+    const onDateChange = due_date => {
+      setValues({
+        ...edit_form,
+        due_date
       });
     };
 
@@ -68,10 +77,14 @@ const TodoItem = memo(
               name="content"
               value={edit_form.content}
             />
-            <input
-              onChange={handleChange}
-              name="due_date"
-              value={edit_form.due_date}
+            <DatePicker
+              selected={edit_form.due_date}
+              onChange={onDateChange}
+              showTimeSelect
+              timeFormat="HH:mm"
+              timeIntervals={15}
+              dateFormat="MMMM d, yyyy h:mm aa"
+              timeCaption="time"
             />
           </div>
         ) : (
