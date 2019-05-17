@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: true,
         defaultValue: DataTypes.NOW
       },
-      done: {
+      completed: {
         type: DataTypes.BOOLEAN,
         allowNull: true,
         defaultValue: false

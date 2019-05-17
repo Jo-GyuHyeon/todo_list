@@ -17,7 +17,7 @@ export const getTodos = async (_, { input }, { db, body }) => {
     todos = await db.TODO.findAll({
       where: {
         id: {
-          [Op.gte]: max_id
+          [Op.gt]: max_id
         }
       },
       limit: limit || 50,

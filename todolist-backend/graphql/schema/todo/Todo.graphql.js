@@ -7,7 +7,7 @@ scalar Date
     title: String,
     content: String,
     due_date: Date,
-    done: Boolean,
+    completed: Boolean,
   }
 
   input new_todo {
@@ -23,7 +23,7 @@ scalar Date
     title: String!,
     content: String!,
     due_date: Date,
-    done: Boolean!
+    completed: Boolean!
   }
 
   input Pageable{
