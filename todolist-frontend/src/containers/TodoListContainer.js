@@ -1,55 +1,78 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as todoActions from 'store/modules/todo';
 import * as VisibilityFilters from '../store/modules/visibilityFilter';
 import TodoList from 'components/Todo/TodoList';
 
-const TodoListContainer = ({ todo, TodoActions, filter }) => {
-  const { todos } = todo;
+class TodoListContainer extends Component {
+  componentDidMount() {
+    window.addEventListener('scroll', this._infiniteScroll, true);
+  }
 
-  const onUpdate = edited_todo => {
-    TodoActions.updateTodo(edited_todo);
+  _infiniteScroll = () => {
+    const scrollHeight = Math.max(
+      document.documentElement.scrollHeight,
+      document.body.scrollHeight
+    );
+    const scrollTop = Math.max(
+      document.documentElement.scrollTop,
+      document.body.scrollTop
+    );
+    const clientHeight = document.documentElement.clientHeight;
+
+    if (scrollTop + clientHeight === scrollHeight) {
+      //get api
+    }
   };
 
-  const onRemove = id => {
-    TodoActions.removeTodo(id);
+  onUpdate = edited_todo => {
+    this.props.TodoActions.updateTodo(edited_todo);
   };
 
-  const onToggle = id => {
-    TodoActions.toggleCheck(id);
+  onRemove = id => {
+    this.props.TodoActions.removeTodo(id);
   };
 
-  const onSort = todos => {
-    TodoActions.sortTodo(todos);
+  onToggle = id => {
+    this.props.TodoActions.toggleCheck(id);
   };
 
-  const filtered_todos = () => {
+  onSort = todos => {
+    this.props.TodoActions.sortTodo(todos);
+  };
+
+  filtered_todos = () => {
+    const { filter, todo } = this.props;
+
     switch (filter) {
       case VisibilityFilters.SHOW_ALL:
-        return todos;
+        return todo.todos;
       case VisibilityFilters.SHOW_COMPLETED:
-        return todos.filter(todo => todo.completed);
+        return todo.todos.filter(todo => todo.completed);
       case VisibilityFilters.SHOW_ACTIVE:
-        return todos.filter(todo => !todo.completed);
+        return todo.todos.filter(todo => !todo.completed);
       case VisibilityFilters.SHOW_EXPIRED:
         const now = new Date();
-        return todos.filter(todo => now - todo.due_date > 0);
+        return todo.todos.filter(todo => now - todo.due_date > 0);
       default:
         throw new Error('Unknown filter: ' + filter);
     }
   };
 
-  return (
-    <TodoList
-      todos={filtered_todos()}
-      onSort={onSort}
-      onUpdate={onUpdate}
-      onRemove={onRemove}
-      onToggle={onToggle}
-    />
-  );
-};
+  render() {
+    const { filtered_todos, onSort, onUpdate, onRemove, onToggle } = this;
+    return (
+      <TodoList
+        todos={filtered_todos()}
+        onSort={onSort}
+        onUpdate={onUpdate}
+        onRemove={onRemove}
+        onToggle={onToggle}
+      />
+    );
+  }
+}
 
 export default connect(
   state => ({
