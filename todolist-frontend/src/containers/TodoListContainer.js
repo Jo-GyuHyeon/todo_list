@@ -7,8 +7,15 @@ import TodoList from 'components/Todo/TodoList';
 
 class TodoListContainer extends Component {
   componentDidMount() {
+    this._getTodos();
     window.addEventListener('scroll', this._infiniteScroll, true);
   }
+
+  _getTodos = () => {
+    const { todos } = this.props.todo;
+    const max_id = todos.length > 0 ? todos[todos.length - 1].id : 0;
+    this.props.TodoActions.getTodos({ max_id });
+  };
 
   _infiniteScroll = () => {
     const scrollHeight = Math.max(
@@ -22,7 +29,7 @@ class TodoListContainer extends Component {
     const clientHeight = document.documentElement.clientHeight;
 
     if (scrollTop + clientHeight === scrollHeight) {
-      //get api
+      this._getTodos();
     }
   };
 
@@ -31,11 +38,12 @@ class TodoListContainer extends Component {
   };
 
   onRemove = id => {
-    this.props.TodoActions.removeTodo(id);
+    this.props.TodoActions.removeTodo({ id });
   };
 
   onToggle = id => {
-    this.props.TodoActions.toggleCheck(id);
+    const [edited_todo] = this.props.todo.todos.filter(todo => todo.id === id);
+    this.onUpdate({ ...edited_todo, completed: !edited_todo.completed });
   };
 
   onSort = todos => {

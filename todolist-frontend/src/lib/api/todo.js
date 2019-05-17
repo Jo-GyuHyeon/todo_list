@@ -67,6 +67,7 @@ export const updateTodo = async todo => {
             pos: ${todo.pos}, 
             title: "${todo.title}", 
             content: "${todo.content}", 
+            due_date: "${todo.due_date}",
             completed: ${todo.completed} 
           }
         ) {

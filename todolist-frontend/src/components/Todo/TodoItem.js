@@ -78,7 +78,7 @@ const TodoItem = memo(
               value={edit_form.content}
             />
             <DatePicker
-              selected={edit_form.due_date}
+              selected={new Date(edit_form.due_date)}
               onChange={onDateChange}
               showTimeSelect
               timeFormat="HH:mm"
