@@ -63,7 +63,7 @@ const TodoItem = memo(
         draggable
         onDragStart={e => onDragStart(e, index)}
         onDragOver={() => onDragOver(index)}
-        onDragEnd={onDragEnd}
+        onDragEnd={e => onDragEnd(e, index)}
       >
         {editing ? (
           <div>

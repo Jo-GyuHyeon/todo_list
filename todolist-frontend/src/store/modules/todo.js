@@ -26,7 +26,7 @@ let id = 0;
 const initialState = {
   todo_item: {
     id: 0,
-    order: 0,
+    pos: 0,
     title: '',
     content: '',
     due_date: new Date(),

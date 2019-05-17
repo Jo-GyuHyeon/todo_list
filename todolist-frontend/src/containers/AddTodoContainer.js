@@ -5,7 +5,8 @@ import * as todoActions from 'store/modules/todo';
 import TodoForm from 'components/Todo/TodoForm';
 
 const AddTodoContainer = ({ todo, TodoActions }) => {
-  const { todo_item } = todo;
+  const { todo_item, todos } = todo;
+  const pos = 65535;
 
   const onChange = e => {
     TodoActions.changeInput({
@@ -19,7 +20,9 @@ const AddTodoContainer = ({ todo, TodoActions }) => {
 
   const onSubmit = e => {
     e.preventDefault();
-    TodoActions.addTodo(todo_item);
+    const last_todo = todos[todos.length - 1];
+    const new_todo_pos = pos + (last_todo ? last_todo.pos : 0);
+    TodoActions.addTodo({ ...todo_item, pos: new_todo_pos });
     TodoActions.initializeForm();
   };
 

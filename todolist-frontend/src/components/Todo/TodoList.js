@@ -50,8 +50,25 @@ const TodoList = ({ todos, onSort, onUpdate, onRemove, onToggle }) => {
     onSort(items);
   };
 
-  const onDragEnd = e => {
+  const onDragEnd = (e, index) => {
     setDraggedItem();
+    const target_todo = getPositionChangedTodo(e, index);
+    onUpdate(target_todo);
+  };
+
+  const getPositionChangedTodo = (e, index) => {
+    const target_todo = todos[index];
+    const prev_todo = index > 0 ? todos[index - 1] : null;
+    const next_todo = index < todos.length - 1 ? todos[index + 1] : null;
+
+    if (!prev_todo && next_todo) {
+      target_todo.pos = next_todo.pos / 2;
+    } else if (!next_todo && prev_todo) {
+      target_todo.pos = prev_todo.pos * 2;
+    } else if (next_todo && prev_todo) {
+      target_todo.pos = (prev_todo.pos + next_todo.pos) / 2;
+    }
+    return target_todo;
   };
 
   return (
