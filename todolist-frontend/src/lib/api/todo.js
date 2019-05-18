@@ -1,4 +1,5 @@
-const URL = 'graphql';
+import { SERVER_URL } from './config';
+const URL = `${SERVER_URL}/graphql`;
 
 export const todos = async ({ max_id, limit = 30 }) => {
   const res = await fetch(URL, {
