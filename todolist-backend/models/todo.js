@@ -11,8 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       pos: {
         unique: true,
         type: DataTypes.DOUBLE,
-        allowNull: false,
-        defaultValue: 65535
+        allowNull: false
       },
       title: {
         type: DataTypes.STRING,
@@ -24,8 +23,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       due_date: {
         type: DataTypes.DATE,
-        allowNull: true,
-        defaultValue: DataTypes.NOW
+        allowNull: true
       },
       completed: {
         type: DataTypes.BOOLEAN,

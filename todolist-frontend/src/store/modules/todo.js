@@ -33,7 +33,7 @@ const initialState = {
     pos: 0,
     title: '',
     content: '',
-    due_date: new Date(),
+    due_date: '',
     completed: false
   },
   todos: []

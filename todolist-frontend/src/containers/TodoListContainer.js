@@ -34,7 +34,8 @@ class TodoListContainer extends Component {
   };
 
   onUpdate = edited_todo => {
-    this.props.TodoActions.updateTodo(edited_todo);
+    const due_date = edited_todo.due_date ? edited_todo.due_date : '';
+    this.props.TodoActions.updateTodo({ ...edited_todo, due_date });
   };
 
   onRemove = id => {
@@ -61,8 +62,13 @@ class TodoListContainer extends Component {
       case VisibilityFilters.SHOW_ACTIVE:
         return todo.todos.filter(todo => !todo.completed);
       case VisibilityFilters.SHOW_EXPIRED:
-        const now = new Date();
-        return todo.todos.filter(todo => now - todo.due_date > 0);
+        const now = new Date().getTime();
+        return todo.todos.filter(
+          todo =>
+            !todo.completed &&
+            todo.due_date &&
+            now - new Date(todo.due_date).getTime() > 0
+        );
       default:
         throw new Error('Unknown filter: ' + filter);
     }

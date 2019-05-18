@@ -34,13 +34,16 @@ export const updateTodo = async (_, { input }, { db, body }) => {
   let todo;
 
   try {
-    todo = await db.TODO.update(input, {
-      where: {
-        id: input.id
-      },
-      returning: true,
-      plain: true
-    });
+    todo = await db.TODO.update(
+      { ...input, due_date: input.due_date ? input.due_date : null },
+      {
+        where: {
+          id: input.id
+        },
+        returning: true,
+        plain: true
+      }
+    );
   } catch (error) {
     console.error(error);
   }

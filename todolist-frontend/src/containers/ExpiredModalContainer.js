@@ -13,11 +13,11 @@ class ExpiredModalContainer extends Component {
   componentDidMount() {
     this.milliseconds = 1000 * 60;
     this.timer = setInterval(() => {
-      this.handleOpenModal();
+      this.handleOpenExpiredModal();
     }, this.milliseconds);
   }
 
-  handleOpenModal = () => {
+  handleOpenExpiredModal = () => {
     if (!this.props.alarm.state) {
       return;
     }
@@ -33,15 +33,18 @@ class ExpiredModalContainer extends Component {
     this.props.BaseActions.closeModal();
     clearInterval(this.timer);
     this.timer = setInterval(() => {
-      this.handleOpenModal();
+      this.handleOpenExpiredModal();
     }, this.milliseconds);
   };
 
   getExpiredTodos = () => {
     const { todos } = this.props;
-    const now = new Date();
+    const now = new Date().getTime();
     const filterd_todos = todos.filter(
-      todo => !todo.completed && now - todo.due_date > 0
+      todo =>
+        !todo.completed &&
+        todo.due_date &&
+        now - new Date(todo.due_date).getTime() > 0
     );
     return filterd_todos;
   };

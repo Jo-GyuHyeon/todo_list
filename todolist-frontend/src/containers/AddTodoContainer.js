@@ -18,12 +18,24 @@ const AddTodoContainer = ({ todo, TodoActions }) => {
     TodoActions.changeInput({ due_date });
   };
 
-  const onSubmit = e => {
+  const onSubmit = async e => {
     e.preventDefault();
-    const last_todo = todos[todos.length - 1];
+    const prev_last_todo = todos[todos.length - 1];
+    const { data } = await _getTodos(prev_last_todo.id);
+    const last_todo = data.todos[data.todos.length - 1];
+
     const new_todo_pos = pos + (last_todo ? last_todo.pos : 0);
-    TodoActions.addTodo({ ...todo_item, pos: new_todo_pos });
+    TodoActions.addTodo({
+      ...todo_item,
+      pos: new_todo_pos
+    });
+
     TodoActions.initializeForm();
+  };
+
+  const _getTodos = max_id => {
+    const todos = TodoActions.getTodos({ max_id, limit: 0 });
+    return todos;
   };
 
   return (

@@ -7,6 +7,7 @@ const TodoForm = ({ todo_item, onChange, onDateChange, onSubmit }) => {
     <div>
       <form onSubmit={onSubmit}>
         <input
+          required
           name="title"
           placeholder="title"
           onChange={onChange}
@@ -14,6 +15,7 @@ const TodoForm = ({ todo_item, onChange, onDateChange, onSubmit }) => {
           ref={this}
         />
         <input
+          required
           name="content"
           placeholder="content"
           onChange={onChange}
