@@ -1,7 +1,7 @@
 import * as React from 'react';
 import './style.scss';
 
-const ToggleSwitch = ({ onClick, checked }) => (
+const ToggleSwitch = ({ onChange, checked }) => (
   <div className="toggleSwitch">
     <span className="chekced">{checked ? 'on' : 'off'}</span>
     <label className="switch">
@@ -10,7 +10,7 @@ const ToggleSwitch = ({ onClick, checked }) => (
         <input
           className="switch__checkbox"
           type="checkbox"
-          onChange={onClick}
+          onChange={onChange}
           checked={checked}
         />
         <span className="slider-round" />
