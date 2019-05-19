@@ -14,7 +14,7 @@ const TodoForm = ({ todo_item, onChange, onDateChange, onSubmit }) => {
           value={todo_item.title}
           ref={this}
         />
-        <input
+        <textarea
           required
           name="content"
           placeholder="content"

@@ -1,23 +1,19 @@
 import React from 'react';
 import { ReactComponent as CancelIcon } from '../ic-cancel.svg';
-import styles from './AlertModal.module.css';
-
+import './style.scss';
 const AlertModal = ({ onClose, message }) => {
   return (
-    <div className={styles.modalWrapper}>
-      <div className={styles.content}>
+    <div className="modalWrapper">
+      <div className="content">
         <div>
-          <div className={styles.cancelButton} onClick={onClose}>
+          <div className="cancelButton" onClick={onClose}>
             <CancelIcon />
           </div>
         </div>
-        <div className={styles.content}>
-          <div className={styles.message}>{message}</div>
-          <div className={styles.buttonWrapper}>
-            <button
-              className={`${styles.button} ${styles.submit}`}
-              onClick={onClose}
-            >
+        <div className="content">
+          <div className="message">{message}</div>
+          <div className="buttonWrapper">
+            <button className="button submit" onClick={onClose}>
               확인
             </button>
           </div>

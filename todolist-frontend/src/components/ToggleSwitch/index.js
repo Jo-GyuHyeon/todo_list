@@ -1,1 +1,1 @@
-export { default } from './ToogleSwitch';
+export { default } from './ToggleSwitch';

@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import * as baseActions from 'store/modules/base';
 import AlertModal from 'components/Modal/Alert';
 import ModalPortal from 'components/Modal/ModalPortal';
+import ToggleSwitch from '../components/ToggleSwitch';
 
 class ExpiredModalContainer extends Component {
   componentWillUnmount() {
@@ -59,11 +60,7 @@ class ExpiredModalContainer extends Component {
 
     return (
       <div>
-        {!alarm.state ? (
-          <button onClick={this.handleToggleAlarm}>set alarm</button>
-        ) : (
-          <button onClick={this.handleToggleAlarm}>turn off the alarm</button>
-        )}
+        <ToggleSwitch onClick={this.handleToggleAlarm} checked={alarm.state} />
         {modal.state && (
           <ModalPortal>
             <AlertModal

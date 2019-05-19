@@ -1,18 +1,14 @@
 import React from 'react';
 import TodoListContainer from 'containers/TodoListContainer';
 import AddTodoContainer from 'containers/AddTodoContainer';
-import Footer from './PageTemplate/Footer';
-import ExpiredModalContainer from '../containers/ExpiredModalContainer';
+import PageTemplate from './PageTemplate/PageTemplate';
 
 function App() {
   return (
-    <div>
-      TodoList
+    <PageTemplate>
       <AddTodoContainer />
       <TodoListContainer />
-      <ExpiredModalContainer />
-      <Footer />
-    </div>
+    </PageTemplate>
   );
 }
 

@@ -72,7 +72,7 @@ const TodoItem = memo(
               name="title"
               value={edit_form.title}
             />
-            <input
+            <textarea
               onChange={handleChange}
               name="content"
               value={edit_form.content}
