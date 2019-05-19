@@ -36,7 +36,8 @@ export const addTodo = async todo => {
           input: { 
             pos: ${todo.pos}, 
             title: " ${todo.title}", 
-            content: " ${todo.content}" 
+            content: " ${todo.content}" ,
+            due_date: "${todo.due_date}",
           }
         ) {
           id
