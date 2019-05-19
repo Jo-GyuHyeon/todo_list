@@ -21,8 +21,11 @@ const AddTodoContainer = ({ todo, TodoActions }) => {
   const onSubmit = async e => {
     e.preventDefault();
     const prev_last_todo = todos[todos.length - 1];
-    const { data } = await _getTodos(prev_last_todo.id);
-    const last_todo = data.todos[data.todos.length - 1];
+    const { data } = await _getTodos(prev_last_todo ? prev_last_todo.id : 0);
+    const last_todo =
+      data.todos.length > 0
+        ? data.todos[data.todos.length - 1]
+        : prev_last_todo;
 
     const new_todo_pos = pos + (last_todo ? last_todo.pos : 0);
     TodoActions.addTodo({
