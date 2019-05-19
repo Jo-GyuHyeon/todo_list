@@ -12,12 +12,8 @@ $layout-width: 768px;
     padding: 2.5rem;
     border-bottom: solid 0.5px rgba(0, 0, 0, 0.2);
   }
-  &__body {
-    padding: 2.5rem;
-    // border: solid 1px;
-  }
+
   &__nav {
-    padding: 2rem 2.5rem;
-    // border: solid 1px;
+    padding: 2rem 2.5rem 0;
   }
 }

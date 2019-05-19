@@ -60,7 +60,7 @@ class ExpiredModalContainer extends Component {
 
     return (
       <div>
-        <ToggleSwitch onClick={this.handleToggleAlarm} checked={alarm.state} />
+        <ToggleSwitch onChange={this.handleToggleAlarm} checked={alarm.state} />
         {modal.state && (
           <ModalPortal>
             <AlertModal

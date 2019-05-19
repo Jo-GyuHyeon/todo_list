@@ -32,10 +32,10 @@ const month_number = date.getMonth();
 const Header = () => (
   <div className="header">
     <div className="date">
+      <div className="title">Todo</div>
       <div className="date-title">{`${today}, ${month_number + 1}th`}</div>
       <div className="date-subtitle">{`${month[month_number]}`}</div>
     </div>
-    <div className="title">todos</div>
     <ExpiredModalContainer />
   </div>
 );

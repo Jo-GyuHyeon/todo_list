@@ -1,7 +1,8 @@
 export const addTodo = async (_, { input }, { db, body }) => {
   let todo;
+  const due_date = input.due_date ? input.due_date : null;
   try {
-    todo = await db.TODO.create(input);
+    todo = await db.TODO.create({ ...input, due_date: due_date });
   } catch (error) {
     console.error(error);
   }

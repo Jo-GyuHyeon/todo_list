@@ -1,6 +1,7 @@
 import React, { useState, memo } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import './styles.scss';
 
 const TodoItem = memo(
   ({
@@ -22,7 +23,7 @@ const TodoItem = memo(
       toggleEdit(!editing);
 
       if (editing) {
-        onUpdate(edit_form);
+        onUpdate({ ...edit_form, completed });
       }
     };
 
@@ -56,9 +57,10 @@ const TodoItem = memo(
 
     return (
       <li
+        className={completed ? 'complete' : ''}
         style={{
-          textDecoration: completed ? 'line-through' : 'none',
-          border: ' solid 1px'
+          border: 'none',
+          borderBottom: '1px solid rgba(0, 0, 0, 0.3)'
         }}
         draggable
         onDragStart={e => onDragStart(e, index)}
@@ -66,24 +68,38 @@ const TodoItem = memo(
         onDragEnd={e => onDragEnd(e, index)}
       >
         {editing ? (
-          <div>
-            <input
-              onChange={handleChange}
-              name="title"
-              value={edit_form.title}
-            />
-            <textarea
-              onChange={handleChange}
-              name="content"
-              value={edit_form.content}
-            />
+          <div className="todo-form">
+            <div className="todo-form__label">
+              <label>Title *</label>
+            </div>
+            <div className="todo-form__input">
+              <input
+                onChange={handleChange}
+                name="title"
+                value={edit_form.title}
+              />
+            </div>
+            <div className="todo-form__label">
+              <label>Content *</label>
+            </div>
+            <div className="todo-form__input">
+              <textarea
+                onChange={handleChange}
+                name="content"
+                value={edit_form.content}
+              />
+            </div>
+            <div className="todo-form__label">
+              <label>Due date(optional)</label>
+            </div>
             <DatePicker
+              className="datepicker"
               selected={edit_form.due_date && new Date(edit_form.due_date)}
               onChange={onDateChange}
               showTimeSelect
               timeFormat="HH:mm"
               timeIntervals={15}
-              dateFormat="MMMM d, yyyy h:mm aa"
+              dateFormat="MM/dd/yyyy h:mm aa"
               timeCaption="time"
             />
           </div>

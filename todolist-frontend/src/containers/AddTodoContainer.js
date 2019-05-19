@@ -18,9 +18,14 @@ const AddTodoContainer = ({ todo, TodoActions }) => {
     TodoActions.changeInput({ due_date });
   };
 
+  const _sortByid = (prev, next) => {
+    return prev.id < next.id ? -1 : prev.id > next.id ? 1 : 0;
+  };
+
   const onSubmit = async e => {
     e.preventDefault();
-    const prev_last_todo = todos[todos.length - 1];
+    const sorted_todos = todos.sort(_sortByid);
+    const prev_last_todo = sorted_todos[sorted_todos.length - 1];
     const { data } = await _getTodos(prev_last_todo ? prev_last_todo.id : 0);
     const last_todo =
       data.todos.length > 0

@@ -13,8 +13,14 @@ class TodoListContainer extends Component {
 
   _getTodos = () => {
     const { todos } = this.props.todo;
-    const max_id = todos.length > 0 ? todos[todos.length - 1].id : 0;
+    const sorted_todos = todos.sort(this._sortByid);
+    const max_id =
+      sorted_todos.length > 0 ? sorted_todos[sorted_todos.length - 1].id : 0;
     this.props.TodoActions.getTodos({ max_id });
+  };
+
+  _sortByid = (prev, next) => {
+    return prev.id < next.id ? -1 : prev.id > next.id ? 1 : 0;
   };
 
   _infiniteScroll = () => {

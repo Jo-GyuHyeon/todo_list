@@ -1,0 +1,60 @@
+$primary-font-size: 0.9rem;
+$secondary-font-size: 0.4rem;
+$primary-color: rgba(0, 0, 0, 0.02);
+
+input,
+textarea {
+  width: 99%;
+  border: none;
+  border-bottom: solid 0.5px rgba(0, 0, 0, 0.2);
+  &:focus {
+    outline: none;
+    border-bottom: 1.5px solid #2196f3;
+    transition: 0.3s;
+  }
+  &::placeholder {
+    font-size: $secondary-font-size;
+  }
+}
+
+textarea {
+  height: 2rem;
+}
+
+.datepicker {
+  font-size: $primary-font-size;
+}
+.todo-form {
+  font-size: $secondary-font-size;
+  color: rgba(0, 0, 0, 0.6);
+  width: 100%;
+  &__label {
+    margin: 0.65rem auto;
+  }
+  &__input {
+    input,
+    textarea {
+      font-size: $primary-font-size;
+    }
+  }
+  &__submit {
+    margin: 0px 30px;
+  }
+}
+
+.complete {
+  text-decoration: line-through;
+  -webkit-text-decoration-color: red;
+  text-decoration-color: red;
+  .todo-form {
+    .todo-form__input,
+    .react-datepicker-wrapper {
+      input,
+      textarea {
+        text-decoration: line-through;
+        -webkit-text-decoration-color: red;
+        text-decoration-color: red;
+      }
+    }
+  }
+}
