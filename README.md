@@ -118,7 +118,7 @@ For the development environment, you have to run two kind of scripts.
     npm start
    ```
 ## Run screen
-![Run screen](https://user-images.githubusercontent.com/20269425/57995657-4afeb880-7afe-11e9-9ecf-ff6ddc165794.png)
+![Run screen](https://user-images.githubusercontent.com/20269425/58057680-c022ca00-7ba0-11e9-8bf8-a74dc8fc92c3.png)
 ## **Questions?**
 
 If you have any questions, leave an email to <kuhyun1993@gmail.com>
