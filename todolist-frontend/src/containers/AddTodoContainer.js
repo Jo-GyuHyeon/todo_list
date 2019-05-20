@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as todoActions from 'store/modules/todo';
 import TodoForm from 'components/Todo/TodoForm';
+import ErrorBoundary from '../components/ErrorBoundary';
 
 const AddTodoContainer = ({ todo, TodoActions }) => {
   const { todo_item, todos } = todo;
@@ -47,12 +48,14 @@ const AddTodoContainer = ({ todo, TodoActions }) => {
   };
 
   return (
-    <TodoForm
-      todo_item={todo_item}
-      onChange={onChange}
-      onDateChange={onDateChange}
-      onSubmit={onSubmit}
-    />
+    <ErrorBoundary>
+      <TodoForm
+        todo_item={todo_item}
+        onChange={onChange}
+        onDateChange={onDateChange}
+        onSubmit={onSubmit}
+      />
+    </ErrorBoundary>
   );
 };
 

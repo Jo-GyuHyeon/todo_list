@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import * as todoActions from 'store/modules/todo';
 import * as VisibilityFilters from '../store/modules/visibilityFilter';
 import TodoList from 'components/Todo/TodoList';
+import ErrorBoundary from '../components/ErrorBoundary';
 
 class TodoListContainer extends Component {
   componentDidMount() {
@@ -83,13 +84,15 @@ class TodoListContainer extends Component {
   render() {
     const { filtered_todos, onSort, onUpdate, onRemove, onToggle } = this;
     return (
-      <TodoList
-        todos={filtered_todos()}
-        onSort={onSort}
-        onUpdate={onUpdate}
-        onRemove={onRemove}
-        onToggle={onToggle}
-      />
+      <ErrorBoundary>
+        <TodoList
+          todos={filtered_todos()}
+          onSort={onSort}
+          onUpdate={onUpdate}
+          onRemove={onRemove}
+          onToggle={onToggle}
+        />
+      </ErrorBoundary>
     );
   }
 }

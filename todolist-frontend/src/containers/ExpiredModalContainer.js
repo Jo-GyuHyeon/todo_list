@@ -5,6 +5,7 @@ import * as baseActions from 'store/modules/base';
 import AlertModal from 'components/Modal/Alert';
 import ModalPortal from 'components/Modal/ModalPortal';
 import ToggleSwitch from '../components/ToggleSwitch';
+import ErrorBoundary from '../components/ErrorBoundary';
 
 class ExpiredModalContainer extends Component {
   componentWillUnmount() {
@@ -59,7 +60,7 @@ class ExpiredModalContainer extends Component {
     const { modal, alarm } = this.props;
 
     return (
-      <div>
+      <ErrorBoundary>
         <ToggleSwitch onChange={this.handleToggleAlarm} checked={alarm.state} />
         {modal.state && (
           <ModalPortal>
@@ -69,7 +70,7 @@ class ExpiredModalContainer extends Component {
             />
           </ModalPortal>
         )}
-      </div>
+      </ErrorBoundary>
     );
   }
 }

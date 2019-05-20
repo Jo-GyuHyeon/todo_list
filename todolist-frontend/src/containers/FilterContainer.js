@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 
 import * as visibilityFilter from 'store/modules/visibilityFilter';
 import Link from '../components/Todo/Link';
+import ErrorBoundary from '../components/ErrorBoundary';
 
 const FilterContainer = ({
   prevStateFilter,
@@ -16,7 +17,11 @@ const FilterContainer = ({
   };
   const active = filter === prevStateFilter;
 
-  return <Link active={active} onClick={setFilter} value={children} />;
+  return (
+    <ErrorBoundary>
+      <Link active={active} onClick={setFilter} value={children} />
+    </ErrorBoundary>
+  );
 };
 
 export default connect(
