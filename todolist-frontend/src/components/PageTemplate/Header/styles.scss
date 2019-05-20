@@ -1,0 +1,23 @@
+$layout-width: 1070px;
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  .title {
+    margin: -15px 0px;
+    color: #b8b9c8;
+    font-size: 3.25rem;
+  }
+  .date {
+    &-title {
+      margin: 10px auto;
+      color: #696ff2;
+      font-size: 2rem;
+    }
+    &-subtitle {
+      padding: 10px auto;
+      color: #b8b9c8;
+      font-size: 1rem;
+    }
+  }
+}

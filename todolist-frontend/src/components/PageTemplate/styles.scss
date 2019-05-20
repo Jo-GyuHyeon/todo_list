@@ -1,0 +1,19 @@
+$layout-width: 768px;
+
+.page {
+  max-width: $layout-width;
+  margin: 3.5rem auto;
+
+  border-radius: 8px;
+  border: solid 1px #fafafa;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+  &__header {
+    padding: 2.5rem;
+    border-bottom: solid 0.5px rgba(0, 0, 0, 0.2);
+  }
+
+  &__nav {
+    padding: 2rem 2.5rem 0;
+  }
+}
