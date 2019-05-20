@@ -25,6 +25,7 @@ export const todos = async ({ max_id, limit = 30 }) => {
 };
 
 export const addTodo = async todo => {
+  const replacedContent = todo.content.replace(/(\r\n|\n|\r)/gm, '\\n');
   const res = await fetch(URL, {
     method: 'POST',
     headers: {
@@ -36,7 +37,7 @@ export const addTodo = async todo => {
           input: { 
             pos: ${todo.pos}, 
             title: " ${todo.title}", 
-            content: " ${todo.content}" ,
+            content: " ${replacedContent}" ,
             due_date: "${todo.due_date}",
           }
         ) {
@@ -56,6 +57,7 @@ export const addTodo = async todo => {
 };
 
 export const updateTodo = async todo => {
+  const replacedContent = todo.content.replace(/(\r\n|\n|\r)/gm, '\\n');
   const res = await fetch(URL, {
     method: 'POST',
     headers: {
@@ -68,7 +70,7 @@ export const updateTodo = async todo => {
             id: ${todo.id}, 
             pos: ${todo.pos}, 
             title: "${todo.title}", 
-            content: "${todo.content}", 
+            content: "${replacedContent}", 
             due_date: "${todo.due_date}",
             completed: ${todo.completed} 
           }

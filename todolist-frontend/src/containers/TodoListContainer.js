@@ -13,7 +13,7 @@ class TodoListContainer extends Component {
 
   _getTodos = () => {
     const { todos } = this.props.todo;
-    const sorted_todos = todos.sort(this._sortByid);
+    const sorted_todos = [...todos].sort(this._sortByid);
     const max_id =
       sorted_todos.length > 0 ? sorted_todos[sorted_todos.length - 1].id : 0;
     this.props.TodoActions.getTodos({ max_id });

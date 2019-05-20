@@ -1,5 +1,5 @@
-$primary-font-size: 0.9rem;
-$secondary-font-size: 0.4rem;
+$primary-font-size: 1.2rem;
+$secondary-font-size: 0.8rem;
 $primary-color: rgba(0, 0, 0, 0.02);
 
 input,
@@ -44,6 +44,7 @@ textarea {
 
 .complete {
   text-decoration: line-through;
+
   -webkit-text-decoration-color: red;
   text-decoration-color: red;
   .todo-form {
@@ -57,4 +58,48 @@ textarea {
       }
     }
   }
+}
+
+.todo {
+  margin: 30px 0px;
+  padding: 10px 20px;
+  overflow: overlay;
+  background: white;
+  border: "none";
+  border-radius: 10px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 10px 0 rgba(0, 0, 0, 0.1);
+  .todo-item {
+    color: #707070;
+    &__title {
+      font-size: 1.5rem;
+      margin: 5px 0px;
+    }
+    &__due_date {
+      font-size: 0.9rem;
+      margin: 5px 0px;
+    }
+    &__content {
+      font-size: 0.85rem;
+      margin: 5px 0px;
+    }
+  }
+  &-button {
+    display: grid;
+    justify-content: flex-end;
+    grid-auto-flow: column;
+    grid-gap: 5px;
+    margin: 5px 0px;
+  }
+}
+
+.hidden {
+  opacity: 0;
+}
+
+.mirror {
+  position: absolute;
+  top: -1000px;
+  width: calc(90% - 50px);
+
+  box-shadow: unset;
 }

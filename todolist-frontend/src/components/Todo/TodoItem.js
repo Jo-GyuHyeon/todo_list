@@ -15,6 +15,14 @@ const TodoItem = memo(
     onDragEnd
   }) => {
     const { id, title, content, due_date, completed } = todo;
+    const replaced_content = content.split('\n').map((line, index) => {
+      return (
+        <span key={index}>
+          {line}
+          <br />
+        </span>
+      );
+    });
 
     const [editing, toggleEdit] = useState(false);
     const [edit_form, setValues] = useState({ ...todo });
@@ -57,64 +65,64 @@ const TodoItem = memo(
 
     return (
       <li
-        className={completed ? 'complete' : ''}
-        style={{
-          border: 'none',
-          borderBottom: '1px solid rgba(0, 0, 0, 0.3)'
-        }}
+        className={`todo ${completed ? 'complete' : ''}`}
         draggable
         onDragStart={e => onDragStart(e, index)}
         onDragOver={() => onDragOver(index)}
         onDragEnd={e => onDragEnd(e, index)}
       >
-        {editing ? (
-          <div className="todo-form">
-            <div className="todo-form__label">
-              <label>Title *</label>
-            </div>
-            <div className="todo-form__input">
-              <input
-                onChange={handleChange}
-                name="title"
-                value={edit_form.title}
+        <div>
+          {editing ? (
+            <div className="todo-form">
+              <div className="todo-form__label">
+                <label>Title *</label>
+              </div>
+              <div className="todo-form__input">
+                <input
+                  onChange={handleChange}
+                  name="title"
+                  value={edit_form.title}
+                />
+              </div>
+              <div className="todo-form__label">
+                <label>Content *</label>
+              </div>
+              <div className="todo-form__input">
+                <textarea
+                  onChange={handleChange}
+                  name="content"
+                  value={edit_form.content}
+                />
+              </div>
+              <div className="todo-form__label">
+                <label>Due date(optional)</label>
+              </div>
+              <DatePicker
+                className="datepicker"
+                selected={edit_form.due_date && new Date(edit_form.due_date)}
+                onChange={onDateChange}
+                showTimeSelect
+                timeFormat="HH:mm"
+                timeIntervals={15}
+                dateFormat="MM/dd/yyyy h:mm aa"
+                timeCaption="time"
               />
             </div>
-            <div className="todo-form__label">
-              <label>Content *</label>
+          ) : (
+            <div className="todo-item" onClick={() => onToggle(id)}>
+              <div className="todo-item__title">{title}</div>
+              <div className="todo-item__due_date"> {moment(due_date)}</div>
+              <div className="todo-item__content">{replaced_content}</div>
             </div>
-            <div className="todo-form__input">
-              <textarea
-                onChange={handleChange}
-                name="content"
-                value={edit_form.content}
-              />
-            </div>
-            <div className="todo-form__label">
-              <label>Due date(optional)</label>
-            </div>
-            <DatePicker
-              className="datepicker"
-              selected={edit_form.due_date && new Date(edit_form.due_date)}
-              onChange={onDateChange}
-              showTimeSelect
-              timeFormat="HH:mm"
-              timeIntervals={15}
-              dateFormat="MM/dd/yyyy h:mm aa"
-              timeCaption="time"
-            />
-          </div>
-        ) : (
-          <div onClick={() => onToggle(id)}>
-            <div>{title}</div>
-            <div>{content}</div>
-            <div>{moment(due_date)}</div>
-          </div>
-        )}
+          )}
 
-        <button onClick={() => handleToggleEdit()}>
-          {editing ? '저장' : '수정'}
-        </button>
-        <button onClick={() => onRemove(id)}>삭제</button>
+          <div className="todo-button">
+            <button onClick={() => handleToggleEdit()}>
+              {editing ? '저장' : '수정'}
+            </button>
+            <button onClick={() => onRemove(id)}>삭제</button>
+          </div>
+        </div>
       </li>
     );
   }

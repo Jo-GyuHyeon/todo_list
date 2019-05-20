@@ -24,7 +24,7 @@ const AddTodoContainer = ({ todo, TodoActions }) => {
 
   const onSubmit = async e => {
     e.preventDefault();
-    const sorted_todos = todos.sort(_sortByid);
+    const sorted_todos = [...todos].sort(_sortByid);
     const prev_last_todo = sorted_todos[sorted_todos.length - 1];
     const { data } = await _getTodos(prev_last_todo ? prev_last_todo.id : 0);
     const last_todo =
