@@ -35,7 +35,8 @@ class TodoListContainer extends Component {
     );
     const clientHeight = document.documentElement.clientHeight;
 
-    if (scrollTop + clientHeight === scrollHeight) {
+    const isSuitable = scrollTop !== 0;
+    if (isSuitable && scrollTop + clientHeight === scrollHeight) {
       this._getTodos();
     }
   };
