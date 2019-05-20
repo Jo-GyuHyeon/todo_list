@@ -5,7 +5,6 @@ import './styles.scss';
 
 const Nav = () => (
   <div className="nav">
-    <span className="title">Show:</span>
     <div className="link">
       <FilterContainer filter={visibilityFilter.SHOW_ALL}>All</FilterContainer>
       <FilterContainer filter={visibilityFilter.SHOW_ACTIVE}>

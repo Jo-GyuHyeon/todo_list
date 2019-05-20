@@ -10,9 +10,7 @@ function App() {
       <Wrapper>
         <AddTodoContainer />
       </Wrapper>
-      <Wrapper wrapStyle={'list'}>
-        <TodoListContainer />
-      </Wrapper>
+      <TodoListContainer />
     </PageTemplate>
   );
 }

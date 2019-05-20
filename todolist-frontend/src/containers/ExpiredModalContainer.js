@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as baseActions from 'store/modules/base';
-import AlertModal from 'components/Modal/Alert';
-import ModalPortal from 'components/Modal/ModalPortal';
-import ToggleSwitch from '../components/ToggleSwitch';
+import AlertModal from 'components/Common/Modal/Alert';
+import ModalPortal from 'components/Common/Modal/ModalPortal';
+import ToggleSwitch from '../components/Common/ToggleSwitch';
 import ErrorBoundary from '../components/ErrorBoundary';
 
 class ExpiredModalContainer extends Component {
@@ -27,7 +27,7 @@ class ExpiredModalContainer extends Component {
     if (expred_todos.length === 0) {
       return;
     }
-    const message = `Check your expired (${expred_todos.length})todo`;
+    const message = `Check your expired (${expred_todos.length}) todo`;
     this.props.BaseActions.showModal({ message: message });
   };
 

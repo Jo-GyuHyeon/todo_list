@@ -30,7 +30,7 @@ class AlertModal extends Component {
             <div className="message">{message}</div>
             <div className="buttonWrapper">
               <button className="button submit" onClick={onClose}>
-                확인
+                Confirm
               </button>
             </div>
           </div>
