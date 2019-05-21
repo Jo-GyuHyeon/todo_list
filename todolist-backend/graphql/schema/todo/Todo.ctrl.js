@@ -53,6 +53,30 @@ export const updateTodo = async (_, { input }, { db, body }) => {
   return updated_todo;
 };
 
+export const bulkUpdateTodo = async (_, { input }, { db, body }) => {
+  let todos = [];
+
+  try {
+    for (let i = 0; i < input.length; i++) {
+      const todo = input[i];
+      const updated_todo = await db.TODO.update(
+        { ...todo, due_date: todo.due_date ? todo.due_date : null },
+        {
+          where: {
+            id: todo.id
+          },
+          returning: true,
+          plain: true
+        }
+      );
+      todos.push(updated_todo[1].dataValues);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+  return todos;
+};
+
 export const removeTodo = async (_, { id }, { db, body }) => {
   let todo;
   try {

@@ -17,7 +17,7 @@ class AlertModal extends Component {
   };
 
   render() {
-    const { onClose, message } = this.props;
+    const { onClose, message, onSubmit } = this.props;
     return (
       <div className="modalWrapper">
         <div className="content">
@@ -29,7 +29,7 @@ class AlertModal extends Component {
           <div className="content">
             <div className="message">{message}</div>
             <div className="buttonWrapper">
-              <button className="button submit" onClick={onClose}>
+              <button className="button submit" onClick={onSubmit}>
                 Confirm
               </button>
             </div>
