@@ -4,20 +4,22 @@ import './style.scss';
 
 class AlertModal extends Component {
   componentDidMount() {
-    document.addEventListener('keydown', this.escFunction, false);
+    document.addEventListener('keydown', this.keyEventFuction, false);
   }
   componentWillUnmount() {
-    document.removeEventListener('keydown', this.escFunction, false);
+    document.removeEventListener('keydown', this.keyEventFuction, false);
   }
 
-  escFunction = event => {
-    if (event.keyCode === 27 || event.keyCode === 13) {
+  keyEventFuction = event => {
+    if (event.keyCode === 13) {
+      this.props.onSubmit();
+    } else if (event.keyCode === 27) {
       this.props.onClose();
     }
   };
 
   render() {
-    const { onClose, message } = this.props;
+    const { onClose, message, onSubmit } = this.props;
     return (
       <div className="modalWrapper">
         <div className="content">
@@ -29,8 +31,8 @@ class AlertModal extends Component {
           <div className="content">
             <div className="message">{message}</div>
             <div className="buttonWrapper">
-              <button className="button submit" onClick={onClose}>
-                확인
+              <button className="button submit" onClick={onSubmit}>
+                Confirm
               </button>
             </div>
           </div>

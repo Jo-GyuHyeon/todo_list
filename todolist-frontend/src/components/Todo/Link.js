@@ -1,9 +1,10 @@
 import React from 'react';
+import Button from '../Common/Button';
 
 const Link = ({ active, value, onClick }) => (
-  <button onClick={onClick} disabled={active}>
+  <Button onClick={onClick} disabled={active}>
     {value}
-  </button>
+  </Button>
 );
 
 export default Link;

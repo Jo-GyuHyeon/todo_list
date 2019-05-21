@@ -28,13 +28,13 @@ const month = [
 const date = new Date();
 const today = day[date.getDay()];
 const month_number = date.getMonth();
+const sub_title = `${today}, ${month_number + 1}th ${month[month_number]}`;
 
 const Header = () => (
   <div className="header">
     <div className="date">
       <div className="title">Todo</div>
-      <div className="date-title">{`${today}, ${month_number + 1}th`}</div>
-      <div className="date-subtitle">{`${month[month_number]}`}</div>
+      <div className="subtitle">{sub_title}</div>
     </div>
     <ExpiredModalContainer />
   </div>

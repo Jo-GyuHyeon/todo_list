@@ -8,6 +8,7 @@ scalar Date
     content: String,
     due_date: Date,
     completed: Boolean,
+    alarm: Boolean,
   }
 
   input new_todo {
@@ -24,6 +25,7 @@ scalar Date
     content: String!,
     due_date: Date,
     completed: Boolean!
+    alarm: Boolean!,
   }
 
   input Pageable{
@@ -38,6 +40,7 @@ scalar Date
   extend type Mutation {
     addTodo(input: new_todo): Todo
     updateTodo(input: todo): Todo
+    bulkUpdateTodo(input: [todo]): [Todo]
     removeTodo(id: Int!): Int
   }
 

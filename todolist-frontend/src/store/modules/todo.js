@@ -6,6 +6,7 @@ import * as TodoAPI from 'lib/api/todo';
 const ADD_TODO = 'todos/ADD_TODO';
 const GET_TODOS = 'todos/GET_TODOS';
 const UPDATE_TODO = 'todos/UPDATE_TODO';
+const BULK_UPDATE_TODO = 'todos/BULK_UPDATE_TODO';
 const REMOVE_TODO = 'todos/REMOVE_TODO';
 const CHANGE_INPUT = 'todos/CHANGE_INPUT';
 const SORT_TODO = 'todos/SORT_TODO';
@@ -16,6 +17,11 @@ export const getTodos = createAction(GET_TODOS, TodoAPI.todos, meta => meta);
 export const updateTodo = createAction(
   UPDATE_TODO,
   TodoAPI.updateTodo,
+  meta => meta
+);
+export const bulkUpdateTodo = createAction(
+  BULK_UPDATE_TODO,
+  TodoAPI.bulkUpdateTodo,
   meta => meta
 );
 export const removeTodo = createAction(
@@ -34,7 +40,8 @@ const initialState = {
     title: '',
     content: '',
     due_date: '',
-    completed: false
+    completed: false,
+    alarm: true
   },
   todos: []
 };
@@ -57,7 +64,6 @@ export default handleActions(
           draft.todos = [...draft.todos, ...todos];
         })
     }),
-
     ...pender({
       type: UPDATE_TODO,
       onSuccess: (state, action) =>
@@ -66,6 +72,18 @@ export default handleActions(
           draft.todos = draft.todos.map(todo =>
             todo.id === edited_todo.id ? edited_todo : todo
           );
+        })
+    }),
+    ...pender({
+      type: BULK_UPDATE_TODO,
+      onSuccess: (state, action) =>
+        produce(state, draft => {
+          const edited_todos = action.payload.data.bulkUpdateTodo;
+          edited_todos.forEach(edited_todo => {
+            draft.todos = draft.todos.map(todo =>
+              todo.id === edited_todo.id ? edited_todo : todo
+            );
+          });
         })
     }),
     ...pender({

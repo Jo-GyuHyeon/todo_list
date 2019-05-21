@@ -1,62 +1,47 @@
 $primary-font-size: 1.2rem;
-$secondary-font-size: 0.8rem;
+$secondary-font-size: 0.9rem;
 $primary-color: rgba(0, 0, 0, 0.02);
 
 input,
 textarea {
   width: 99%;
   border: none;
-  border-bottom: solid 0.5px rgba(0, 0, 0, 0.2);
   &:focus {
     outline: none;
-    border-bottom: 1.5px solid #2196f3;
+    border-bottom: 1px solid #2196f3;
     transition: 0.3s;
   }
   &::placeholder {
+    font-weight: 500;
     font-size: $secondary-font-size;
   }
-}
-
-textarea {
-  height: 2rem;
 }
 
 .datepicker {
   font-size: $primary-font-size;
 }
-.todo-form {
-  font-size: $secondary-font-size;
-  color: rgba(0, 0, 0, 0.6);
-  width: 100%;
-  &__label {
-    margin: 0.65rem auto;
-  }
-  &__input {
-    input,
-    textarea {
-      font-size: $primary-font-size;
-    }
-  }
-  &__submit {
-    margin: 0px 30px;
-  }
-}
 
 .complete {
   text-decoration: line-through;
-
-  -webkit-text-decoration-color: red;
-  text-decoration-color: red;
   .todo-form {
     .todo-form__input,
     .react-datepicker-wrapper {
       input,
       textarea {
         text-decoration: line-through;
-        -webkit-text-decoration-color: red;
-        text-decoration-color: red;
       }
     }
+  }
+}
+
+.list {
+  display: flex;
+  &-checkBox {
+    align-self: center;
+    margin-bottom: 20px;
+  }
+  .todo {
+    width: 100%;
   }
 }
 
@@ -67,7 +52,7 @@ textarea {
   background: white;
   border: "none";
   border-radius: 10px;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 10px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1), 0 1px 6px 0 rgba(0, 0, 0, 0.1);
   .todo-item {
     color: #707070;
     &__title {
@@ -79,17 +64,31 @@ textarea {
       margin: 5px 0px;
     }
     &__content {
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       margin: 5px 0px;
+      height: 2rem;
     }
   }
   &-button {
     display: grid;
     justify-content: flex-end;
     grid-auto-flow: column;
-    grid-gap: 5px;
+    grid-gap: 15px;
     margin: 5px 0px;
   }
+}
+
+.icon {
+  width: 1.2rem;
+  margin: 1px;
+}
+
+.btn {
+  cursor: pointer;
+}
+
+.red {
+  color: red;
 }
 
 .hidden {
@@ -99,7 +98,5 @@ textarea {
 .mirror {
   position: absolute;
   top: -1000px;
-  width: calc(90% - 50px);
-
-  box-shadow: unset;
+  width: calc(85% - 50px);
 }

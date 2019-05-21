@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as baseActions from 'store/modules/base';
-import AlertModal from 'components/Modal/Alert';
-import ModalPortal from 'components/Modal/ModalPortal';
-import ToggleSwitch from '../components/ToggleSwitch';
+import * as todoActions from 'store/modules/todo';
+import AlertModal from 'components/Common/Modal/Alert';
+import ModalPortal from 'components/Common/Modal/ModalPortal';
+import ToggleSwitch from '../components/Common/ToggleSwitch';
 import ErrorBoundary from '../components/ErrorBoundary';
 
 class ExpiredModalContainer extends Component {
@@ -27,7 +28,7 @@ class ExpiredModalContainer extends Component {
     if (expred_todos.length === 0) {
       return;
     }
-    const message = `Check your expired (${expred_todos.length})todo`;
+    const message = `Check your expired (${expred_todos.length}) todo`;
     this.props.BaseActions.showModal({ message: message });
   };
 
@@ -39,12 +40,22 @@ class ExpiredModalContainer extends Component {
     }, this.milliseconds);
   };
 
+  turnOffAlarm = () => {
+    const { TodoActions } = this.props;
+    const expired_todos = this.getExpiredTodos().map(expired_todo => {
+      return { ...expired_todo, alarm: false };
+    });
+    TodoActions.bulkUpdateTodo(expired_todos);
+    this.handleCloseModal();
+  };
+
   getExpiredTodos = () => {
     const { todos } = this.props;
     const now = new Date().getTime();
     const filterd_todos = todos.filter(
       todo =>
         !todo.completed &&
+        todo.alarm &&
         todo.due_date &&
         now - new Date(todo.due_date).getTime() > 0
     );
@@ -66,6 +77,7 @@ class ExpiredModalContainer extends Component {
           <ModalPortal>
             <AlertModal
               onClose={this.handleCloseModal}
+              onSubmit={this.turnOffAlarm}
               message={modal.message}
             />
           </ModalPortal>
@@ -82,6 +94,7 @@ export default connect(
     alarm: state.base.alarm
   }),
   dispatch => ({
-    BaseActions: bindActionCreators(baseActions, dispatch)
+    BaseActions: bindActionCreators(baseActions, dispatch),
+    TodoActions: bindActionCreators(todoActions, dispatch)
   })
 )(ExpiredModalContainer);

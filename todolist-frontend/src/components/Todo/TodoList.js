@@ -34,11 +34,11 @@ const TodoList = ({ todos, onSort, onUpdate, onRemove, onToggle }) => {
   const [draggedItem, setDraggedItem] = useState(false);
 
   const appendChild = _mirror => {
-    document.querySelector('.list').appendChild(_mirror);
+    document.querySelector('#list').appendChild(_mirror);
   };
 
   const _makeDragingEffect = e => {
-    const _mirror = e.target.cloneNode(true);
+    const _mirror = e.target.parentNode.cloneNode(true);
     _mirror.classList.add('mirror');
     _mirror.classList.remove(onDragClassName);
 
@@ -46,12 +46,12 @@ const TodoList = ({ todos, onSort, onUpdate, onRemove, onToggle }) => {
   };
 
   const onDragStart = (e, index) => {
-    e.target.classList.add(onDragClassName);
+    e.target.parentNode.classList.add(onDragClassName);
     _mirror = _makeDragingEffect(e);
     appendChild(_mirror);
     setDraggedItem(todos[index]);
     e.dataTransfer.effectAllowed = 'move';
-    e.dataTransfer.setData('text/html', e.target);
+    e.dataTransfer.setData('text/html', e.target.parentNode);
     e.dataTransfer.setDragImage(_mirror, 150, 80);
   };
 
@@ -68,7 +68,7 @@ const TodoList = ({ todos, onSort, onUpdate, onRemove, onToggle }) => {
   };
 
   const onDragEnd = (e, index) => {
-    e.target.classList.remove(onDragClassName);
+    e.target.parentNode.classList.remove(onDragClassName);
     _mirror.remove();
     setDraggedItem();
     const target_todo = getPositionChangedTodo(e, index);
@@ -91,7 +91,7 @@ const TodoList = ({ todos, onSort, onUpdate, onRemove, onToggle }) => {
   };
 
   return (
-    <ul>
+    <ul id="list">
       <TodoItems
         todos={todos}
         onUpdate={onUpdate}

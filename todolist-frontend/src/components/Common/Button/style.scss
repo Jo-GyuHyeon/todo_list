@@ -1,0 +1,33 @@
+.button {
+  background-color: white;
+  border: none;
+  color: black;
+  text-align: center;
+  text-decoration: none;
+  font-size: 10px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+
+  border-color: rgb(216, 216, 216) rgb(209, 209, 209) rgb(186, 186, 186);
+  border-style: solid;
+  border-width: 1px;
+  padding: 1px 7px 2px;
+  border-radius: 5px;
+  &:focus {
+    outline: none;
+  }
+  &:disabled {
+    color: rgb(209, 209, 209);
+  }
+}
+
+.blue {
+  background-color: white;
+  color: black;
+
+  &:hover {
+    border-color: #2196f3;
+    background-color: #2196f3;
+    color: white;
+  }
+}

@@ -24,6 +24,8 @@ class TodoListContainer extends Component {
     return prev.id < next.id ? -1 : prev.id > next.id ? 1 : 0;
   };
 
+  timer;
+
   _infiniteScroll = () => {
     const scrollHeight = Math.max(
       document.documentElement.scrollHeight,
@@ -37,7 +39,12 @@ class TodoListContainer extends Component {
 
     const isSuitable = scrollTop !== 0;
     if (isSuitable && scrollTop + clientHeight === scrollHeight) {
-      this._getTodos();
+      if (!this.timer) {
+        this.timer = setTimeout(() => {
+          this.timer = null;
+          this._getTodos();
+        }, 200);
+      }
     }
   };
 

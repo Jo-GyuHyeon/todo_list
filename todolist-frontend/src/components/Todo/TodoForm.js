@@ -2,56 +2,45 @@ import React from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import './styles.scss';
+import Button from '../Common/Button/Button';
 
 const TodoForm = ({ todo_item, onChange, onDateChange, onSubmit }) => {
   return (
-    <div>
-      <form className="todo-form" onSubmit={onSubmit}>
-        <div className="todo-form__label">
-          <label>Title *</label>
-        </div>
-        <div className="todo-form__input">
-          <input
-            required
-            name="title"
-            placeholder="ex) Eating lunch"
-            onChange={onChange}
-            value={todo_item.title}
-            ref={this}
-          />
-        </div>
-        <div className="todo-form__label">
-          <label>Content *</label>
-        </div>
-        <div className="todo-form__input">
-          <textarea
-            required
-            name="content"
-            placeholder="ex) I made a reservation at Brisbane restaurant at 1 o'clock."
-            onChange={onChange}
-            value={todo_item.content}
-          />
-        </div>
-        <div className="todo-form__label">
-          <label>Due date(optional)</label>
-        </div>
-
-        <DatePicker
-          className="datepicker"
-          selected={todo_item.due_date}
-          onChange={onDateChange}
-          showTimeSelect
-          timeFormat="HH:mm"
-          timeIntervals={15}
-          dateFormat="MM/dd/yyyy h:mm aa"
-          timeCaption="time"
-        />
-
-        <button className="todo-form__submit" type="submit">
+    <form className="todo" onSubmit={onSubmit}>
+      <DatePicker
+        className="todo-item__due_date datepicker"
+        selected={todo_item.due_date}
+        onChange={onDateChange}
+        showTimeSelect
+        timeFormat="HH:mm"
+        timeIntervals={15}
+        dateFormat="yyyy/MM/dd h:mm aa"
+        timeCaption="time"
+        placeholderText="Due date"
+      />
+      <input
+        className="todo-item__title"
+        required
+        name="title"
+        placeholder="Title"
+        onChange={onChange}
+        value={todo_item.title}
+        ref={this}
+      />
+      <textarea
+        className="todo-item__content"
+        required
+        name="content"
+        placeholder="Content"
+        onChange={onChange}
+        value={todo_item.content}
+      />
+      <div className="todo-button">
+        <Button className="todo-form__submit" type="submit" color={'blue'}>
           Add Todo
-        </button>
-      </form>
-    </div>
+        </Button>
+      </div>
+    </form>
   );
 };
 
