@@ -6,7 +6,7 @@ import * as TodoAPI from 'lib/api/todo';
 const ADD_TODO = 'todos/ADD_TODO';
 const GET_TODOS = 'todos/GET_TODOS';
 const UPDATE_TODO = 'todos/UPDATE_TODO';
-const BULK_UPDATE_TODO = 'todos/BULK_UPDATE_TODO';
+const CHECK_TODO_NOTIFICATION = 'todos/CHECK_TODO_NOTIFICATION';
 const REMOVE_TODO = 'todos/REMOVE_TODO';
 const CHANGE_INPUT = 'todos/CHANGE_INPUT';
 const SORT_TODO = 'todos/SORT_TODO';
@@ -19,9 +19,9 @@ export const updateTodo = createAction(
   TodoAPI.updateTodo,
   meta => meta
 );
-export const bulkUpdateTodo = createAction(
-  BULK_UPDATE_TODO,
-  TodoAPI.bulkUpdateTodo,
+export const checkTodosNotificaion = createAction(
+  CHECK_TODO_NOTIFICATION,
+  TodoAPI.checkTodosNotificaion,
   meta => meta
 );
 export const removeTodo = createAction(
@@ -75,14 +75,11 @@ export default handleActions(
         })
     }),
     ...pender({
-      type: BULK_UPDATE_TODO,
+      type: CHECK_TODO_NOTIFICATION,
       onSuccess: (state, action) =>
         produce(state, draft => {
-          const edited_todos = action.payload.data.bulkUpdateTodo;
-          edited_todos.forEach(edited_todo => {
-            draft.todos = draft.todos.map(todo =>
-              todo.id === edited_todo.id ? edited_todo : todo
-            );
+          draft.todos = state.todos.map(todo => {
+            return { ...todo, alarm: false };
           });
         })
     }),
@@ -92,7 +89,7 @@ export default handleActions(
         produce(state, draft => {
           const remove_state = action.payload.data.removeTodo;
           if (remove_state === 1) {
-            draft.todos = draft.todos.filter(
+            draft.todos = state.todos.filter(
               todo => todo.id !== action.meta.id
             );
           }

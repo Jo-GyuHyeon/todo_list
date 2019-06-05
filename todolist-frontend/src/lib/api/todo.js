@@ -21,7 +21,7 @@ export const todos = async ({ max_id, limit = 30 }) => {
       }`
     })
   });
-  const data = await res.json();
+  const data = res.json();
   return data;
 };
 
@@ -94,16 +94,7 @@ export const updateTodo = async todo => {
   return data;
 };
 
-export const bulkUpdateTodo = async todos => {
-  const to_update_todos = todos.map(todo => {
-    const replace_content = todo.content.replace(/(\r\n|\n|\r)/gm, '\\n');
-    return { ...todo, content: replace_content };
-  });
-
-  const input = JSON.stringify(to_update_todos)
-    .replace(/"([^(")"]+)":/g, '$1:')
-    .replace(/\\\\n/gm, '\\n');
-
+export const checkTodosNotificaion = async () => {
   const res = await fetch(URL, {
     method: 'POST',
     headers: {
@@ -111,17 +102,7 @@ export const bulkUpdateTodo = async todos => {
     },
     body: JSON.stringify({
       query: `mutation {
-        bulkUpdateTodo(
-          input: ${input}
-        ) {
-          id
-          pos
-          title
-          content
-          due_date
-          completed
-          alarm
-        }
+        checkTodosNotificaion
       }
       `
     })
