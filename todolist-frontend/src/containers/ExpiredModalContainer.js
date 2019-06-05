@@ -42,10 +42,7 @@ class ExpiredModalContainer extends Component {
 
   turnOffAlarm = () => {
     const { TodoActions } = this.props;
-    const expired_todos = this.getExpiredTodos().map(expired_todo => {
-      return { ...expired_todo, alarm: false };
-    });
-    TodoActions.bulkUpdateTodo(expired_todos);
+    TodoActions.checkTodosNotificaion();
     this.handleCloseModal();
   };
 
