@@ -1,8 +1,9 @@
 export const addTodo = async (_, { input }, { db, body }) => {
   let todo;
   const due_date = input.due_date ? input.due_date : null;
+  const alarm = due_date ? true : false;
   try {
-    todo = await db.TODO.create({ ...input, due_date: due_date });
+    todo = await db.TODO.create({ ...input, due_date: due_date, alarm: alarm });
   } catch (error) {
     console.error(error);
   }
@@ -27,16 +28,21 @@ export const getTodos = async (_, { input }, { db, body }) => {
   } catch (error) {
     console.error(error);
   }
-
   return todos;
 };
 
 export const updateTodo = async (_, { input }, { db, body }) => {
   let todo;
 
+  const due_date = input.due_date ? input.due_date : null;
+  const now = new Date().getTime();
+  const isExpired = due_date ? now - new Date(due_date).getTime() > 0 : false;
+
+  const alarm = due_date ? (isExpired ? false : true) : false;
+
   try {
     todo = await db.TODO.update(
-      { ...input, due_date: input.due_date ? input.due_date : null },
+      { ...input, due_date: due_date, alarm: alarm },
       {
         where: {
           id: input.id
@@ -49,32 +55,30 @@ export const updateTodo = async (_, { input }, { db, body }) => {
     console.error(error);
   }
   const updated_todo = todo[1].dataValues;
-
   return updated_todo;
 };
 
-export const bulkUpdateTodo = async (_, { input }, { db, body }) => {
-  let todos = [];
+export const checkTodosNotificaion = async (_, {}, { db, body }) => {
+  const { Op } = db.Sequelize;
 
   try {
-    for (let i = 0; i < input.length; i++) {
-      const todo = input[i];
-      const updated_todo = await db.TODO.update(
-        { ...todo, due_date: todo.due_date ? todo.due_date : null },
-        {
-          where: {
-            id: todo.id
-          },
-          returning: true,
-          plain: true
-        }
-      );
-      todos.push(updated_todo[1].dataValues);
-    }
+    await db.TODO.update(
+      { alarm: false },
+      {
+        where: {
+          due_date: {
+            [Op.lt]: new Date()
+          }
+        },
+        returning: true,
+        plain: true
+      }
+    );
   } catch (error) {
-    console.error(error);
+    console.log(error);
+    return false;
   }
-  return todos;
+  return true;
 };
 
 export const removeTodo = async (_, { id }, { db, body }) => {
@@ -88,6 +92,5 @@ export const removeTodo = async (_, { id }, { db, body }) => {
   } catch (error) {
     console.error(error);
   }
-
   return todo;
 };

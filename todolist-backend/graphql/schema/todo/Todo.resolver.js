@@ -7,7 +7,7 @@ export const Resolvers = {
   Mutation: {
     addTodo: ctrl.addTodo,
     updateTodo: ctrl.updateTodo,
-    bulkUpdateTodo: ctrl.bulkUpdateTodo,
+    checkTodosNotificaion: ctrl.checkTodosNotificaion,
     removeTodo: ctrl.removeTodo
   }
 };

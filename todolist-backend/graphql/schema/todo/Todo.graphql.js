@@ -40,7 +40,7 @@ scalar Date
   extend type Mutation {
     addTodo(input: new_todo): Todo
     updateTodo(input: todo): Todo
-    bulkUpdateTodo(input: [todo]): [Todo]
+    checkTodosNotificaion: Boolean
     removeTodo(id: Int!): Int
   }
 
