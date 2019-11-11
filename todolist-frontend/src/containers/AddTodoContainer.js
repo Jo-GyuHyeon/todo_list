@@ -9,13 +9,13 @@ const AddTodoContainer = ({ todo, TodoActions }) => {
   const { todo_item, todos } = todo;
   const pos = 65535;
 
-  const onChange = e => {
+  const onChange = (e) => {
     TodoActions.changeInput({
       [e.target.name]: e.target.value
     });
   };
 
-  const onDateChange = due_date => {
+  const onDateChange = (due_date) => {
     TodoActions.changeInput({ due_date });
   };
 
@@ -23,15 +23,13 @@ const AddTodoContainer = ({ todo, TodoActions }) => {
     return prev.id < next.id ? -1 : prev.id > next.id ? 1 : 0;
   };
 
-  const onSubmit = async e => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     const sorted_todos = [...todos].sort(_sortByid);
     const prev_last_todo = sorted_todos[sorted_todos.length - 1];
-    const { data } = await _getTodos(prev_last_todo ? prev_last_todo.id : 0);
+
     const last_todo =
-      data.todos.length > 0
-        ? data.todos[data.todos.length - 1]
-        : prev_last_todo;
+      todos.length > 0 ? todos[todos.length - 1] : prev_last_todo;
 
     const new_todo_pos = pos + (last_todo ? last_todo.pos : 0);
     TodoActions.addTodo({
@@ -40,11 +38,6 @@ const AddTodoContainer = ({ todo, TodoActions }) => {
     });
 
     TodoActions.initializeForm();
-  };
-
-  const _getTodos = max_id => {
-    const todos = TodoActions.getTodos({ max_id, limit: 0 });
-    return todos;
   };
 
   return (
@@ -60,10 +53,10 @@ const AddTodoContainer = ({ todo, TodoActions }) => {
 };
 
 export default connect(
-  state => ({
+  (state) => ({
     todo: state.todo
   }),
-  dispatch => ({
+  (dispatch) => ({
     TodoActions: bindActionCreators(todoActions, dispatch)
   })
 )(AddTodoContainer);
