@@ -21,7 +21,7 @@
     "graphql-tools": "^4.0.4",
     "helmet": "^3.18.0",
     "hpp": "^0.2.2",
-    "lodash.merge": "^4.6.1",
+    "lodash.merge": "^4.6.2",
     "mocha": "^6.1.4",
     "morgan": "^1.9.1",
     "nodemon": "^1.19.0",
